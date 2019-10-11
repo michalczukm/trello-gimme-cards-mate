@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "parcel build src/html/*.html",
-    "build:dev": "parcel watch src/html/*.html"
+    "build": "parcel build src/**/*.html",
+    "build:dev": "parcel watch src/**/*.html",
+    "serve": "parcel ./src/index.html"
   },
   "author": "",
   "license": "ISC",
