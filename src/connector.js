@@ -9,6 +9,9 @@ const boardButtonsHandler = trello => {
             title: 'Pick list to get content from:',
             items: lists.map(list => ({
                 text: list.name,
+                args: {
+                    listId: list.id,
+                },
                 callback: trello =>
                     trello.modal({
                         url: './views/format-model/view.html',
@@ -20,6 +23,18 @@ const boardButtonsHandler = trello => {
     });
 };
 
+const listActionHandler = trello =>
+    trello.list('id', 'name').then(list =>
+        trello.modal({
+            url: './views/format-model/view.html',
+            title: `Gimme cards for "${list.name}" mate!`,
+            fullscreen: true,
+            args: {
+                listId: list.id,
+            },
+        }),
+    );
+
 initializeTrelloPowerUp({
     'board-buttons': () => {
         return [
@@ -28,7 +43,15 @@ initializeTrelloPowerUp({
                 text: 'Gimme cards mate',
                 condition: 'always',
                 callback: boardButtonsHandler,
-            },
+            }
         ];
     },
+    'list-actions': () => [
+        {
+            icon: WHITE_ICON,
+            text: 'Gimme cards for this board mate!',
+            condition: 'always',
+            callback: listActionHandler,
+        },
+    ],
 });
