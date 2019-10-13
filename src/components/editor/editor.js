@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import ReactDom from 'react-dom';
 
-import './view.css';
+// import './editor.css';
 
-import Editor from '../../components/editor/monaco-editor';
 import { evaluateUserTemplate } from '../../services/template-service';
+import MonacoEditor from './monaco-editor';
 
-class App extends Component {
+export class Editor extends Component {
     editorRef = null;
 
     state = {
@@ -21,9 +20,7 @@ class App extends Component {
         this.setState({
             tab: 'preview',
             previewResult: evaluateUserTemplate(this.editorRef.getCode(), {
-                list: {
-                    cards: [{ name: 'name 1' }, { name: 'name 2' }, { name: 'name 3' }],
-                },
+                list: this.props.list,
             }),
         });
     };
@@ -34,7 +31,7 @@ class App extends Component {
         return (
             <div>
                 <div className={['app-editor', tab === 'editor' ? '' : 'hidden'].join(' ')}>
-                    <Editor ref={this.bindEditorRef} />
+                    <MonacoEditor ref={this.bindEditorRef} />
                 </div>
                 <div className={['app-editor', tab === 'preview' ? '' : 'hidden'].join(' ')}>
                     <pre>
@@ -58,5 +55,3 @@ class App extends Component {
         );
     }
 }
-
-ReactDom.render(<App />, document.querySelector('#react-app'));

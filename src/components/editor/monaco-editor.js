@@ -72,28 +72,26 @@ const EditorPlaceholder = memo(() => (
     ></div>
 ));
 
-const Editor = (_, ref) => {
+const MonacoEditor = (_, ref) => {
     const [editor, setEditor] = useState(null);
 
     useEffect(() => {
-        setEditor(monaco.editor.create(document.querySelector(`#${editorId}`), {
-            language: 'javascript',
-            value: INITIAL_EDITOR_VALUE,
-            minimap: {
-                enabled: false,
-            },
-        }));
+        setEditor(
+            monaco.editor.create(document.querySelector(`#${editorId}`), {
+                language: 'javascript',
+                value: INITIAL_EDITOR_VALUE,
+                minimap: {
+                    enabled: false,
+                },
+            }),
+        );
     }, []);
 
     useImperativeHandle(ref, () => ({
-        getCode: () => {
-            console.log('Here!!!');
-
-            return editor.getValue();
-        },
+        getCode: () => editor.getValue(),
     }));
 
     return <EditorPlaceholder />;
 };
 
-export default forwardRef(Editor);
+export default forwardRef(MonacoEditor);
