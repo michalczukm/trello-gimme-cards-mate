@@ -14,13 +14,15 @@ class RenderBuilder {
     }
 
     list(items, type = 'unordered') {
-        this.result += (items || [])
-            .map((item, index) => {
-                const punctuation = type === 'ordered' ? index + 1 : '*';
+        this.result +=
+            '\n' +
+            (items || [])
+                .map((item, index) => {
+                    const punctuation = type === 'ordered' ? `${index + 1}.` : '*';
 
-                return `\t${punctuation} ${item}`;
-            })
-            .join('\n');
+                    return `  ${punctuation} ${item}`;
+                })
+                .join('\n');
     }
 
     build() {

@@ -4,13 +4,14 @@ import ReactDom from 'react-dom';
 import './view.css';
 
 import Editor from '../../components/editor';
+import { evaluateUserTemplate } from '../../services/template-service';
 
 class App extends Component {
     editorRef = null;
 
     state = {
         tab: 'editor',
-        emittedCode: '',
+        previewResult: '',
     };
 
     bindEditorRef = ref => (this.editorRef = ref);
@@ -19,12 +20,16 @@ class App extends Component {
     selectPreviewHandler = () => {
         this.setState({
             tab: 'preview',
-            emittedCode: this.editorRef.getCode(),
+            previewResult: evaluateUserTemplate(this.editorRef.getCode(), {
+                list: {
+                    cards: [{ name: 'name 1' }, { name: 'name 2' }, { name: 'name 3' }],
+                },
+            }),
         });
     };
 
     render() {
-        const { tab, emittedCode } = this.state;
+        const { tab, previewResult } = this.state;
 
         return (
             <div>
@@ -33,7 +38,7 @@ class App extends Component {
                 </div>
                 <div className={['app-editor', tab === 'preview' ? '' : 'hidden'].join(' ')}>
                     <pre>
-                        <code>{emittedCode}</code>
+                        <code>{previewResult}</code>
                     </pre>
                 </div>
 
