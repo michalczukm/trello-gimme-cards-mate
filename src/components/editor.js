@@ -1,4 +1,4 @@
-import React, { useEffect, forwardRef, useImperativeHandle } from 'react';
+import React, { useEffect, forwardRef, useImperativeHandle, memo, useState } from 'react';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.main.js';
 
 const INITIAL_EDITOR_VALUE = `
@@ -60,45 +60,40 @@ declare const render: {
 }
 `);
 
-const Editor = ({ getCodeAction }, ref) => {
-    const editorId = 'embedded_monaco_editor_id';
-    let editor;
+const editorId = 'embedded_monaco_editor_id';
+
+const EditorPlaceholder = memo(() => (
+    <div
+        style={{
+            height: '100%',
+            widows: '100%',
+        }}
+        id={editorId}
+    ></div>
+));
+
+const Editor = (_, ref) => {
+    const [editor, setEditor] = useState(null);
 
     useEffect(() => {
-        editor = monaco.editor.create(document.querySelector(`#${editorId}`), {
+        setEditor(monaco.editor.create(document.querySelector(`#${editorId}`), {
             language: 'javascript',
             value: INITIAL_EDITOR_VALUE,
             minimap: {
                 enabled: false,
             },
-        });
+        }));
     }, []);
-
-    // useRef({
-    //     getInputCode: () => {
-    //         return editor.getValue();
-    //     },
-    // });
-
-    // const inputRef = useRef();
 
     useImperativeHandle(ref, () => ({
         getCode: () => {
             console.log('Here!!!');
-            
+
             return editor.getValue();
         },
     }));
 
-    return (
-        <div
-            style={{
-                height: '100%',
-                widows: '100%',
-            }}
-            id={editorId}
-        ></div>
-    );
+    return <EditorPlaceholder />;
 };
 
 export default forwardRef(Editor);
