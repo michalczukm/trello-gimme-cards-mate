@@ -1,23 +1,31 @@
 {
-  "name": "gimme-cards-mate",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "parcel build src/**/*.html",
-    "build:dev": "parcel watch src/**/*.html",
-    "serve": "parcel ./src/index.html"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "eslint": "^6.5.1",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-prettier": "^6.4.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.1",
-    "parcel-bundler": "^1.12.4",
-    "prettier": "^1.18.2"
-  }
+    "name": "gimme-cards-mate",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "parcel build src/**/*.html",
+        "build:dev": "parcel watch src/**/*.html",
+        "build-monaco": "npm run build-monaco-ts && npm run build-monaco-worker",
+        "build-monaco-ts": "parcel build node_modules/monaco-editor/esm/vs/language/typescript/ts.worker.js --no-source-maps",
+        "build-monaco-worker": "parcel build node_modules/monaco-editor/esm/vs/editor/editor.worker.js --no-source-maps",
+        "serve": "parcel serve ./src/index.html"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "eslint": "^6.5.1",
+        "eslint-config-airbnb": "^18.0.1",
+        "eslint-config-prettier": "^6.4.0",
+        "eslint-plugin-import": "^2.18.2",
+        "eslint-plugin-jsx-a11y": "^6.2.3",
+        "eslint-plugin-prettier": "^3.1.1",
+        "parcel-bundler": "^1.12.4",
+        "prettier": "^1.18.2"
+    },
+    "dependencies": {
+        "monaco-editor": "^0.18.1",
+        "react": "^16.10.2",
+        "react-dom": "^16.10.2"
+    }
 }
