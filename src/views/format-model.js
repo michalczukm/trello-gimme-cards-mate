@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
-import { TRELLO_APP_KEY, TRELLO_APP_NAME } from '../../constants';
-import { getTrelloApiService } from '../../trello-api';
-import { Editor } from '../../components/editor';
+import { TRELLO_APP_KEY, TRELLO_APP_NAME, RENDER_PLACEHOLDER_ID } from '../constants';
+import { getTrelloApiService } from '../services/trello-api';
+import { Editor } from '../components/editor';
 
 const trello = TrelloPowerUp.iframe({
     appKey: TRELLO_APP_KEY,
@@ -35,4 +35,4 @@ const Root = () => {
     return <div>{!listCardsResponse ? <p>Loading...</p> : content()}</div>;
 };
 
-ReactDOM.render(<Root />, document.querySelector('#format_model_view'));
+ReactDOM.render(<Root />, document.getElementById(RENDER_PLACEHOLDER_ID));

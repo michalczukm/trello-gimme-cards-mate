@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 
-import './view.css';
+import './test-model.css';
 
-import Editor from '../../components/editor/monaco-editor';
-import { evaluateUserTemplate } from '../../services/template-service';
+import Editor from '../components/editor/monaco-editor';
+import { evaluateUserTemplate } from '../services/template-service';
+import { RENDER_PLACEHOLDER_ID } from '../constants';
 
 class App extends Component {
     editorRef = null;
@@ -33,6 +34,7 @@ class App extends Component {
 
         return (
             <div>
+                <h1>Hmmm</h1>
                 <div className={['app-editor', tab === 'editor' ? '' : 'hidden'].join(' ')}>
                     <Editor ref={this.bindEditorRef} />
                 </div>
@@ -59,4 +61,4 @@ class App extends Component {
     }
 }
 
-ReactDom.render(<App />, document.querySelector('#react-app'));
+ReactDom.render(<App />, document.getElementById(RENDER_PLACEHOLDER_ID));

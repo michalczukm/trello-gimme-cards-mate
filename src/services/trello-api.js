@@ -1,5 +1,5 @@
-import { TRELLO_APP_KEY } from './constants';
-import { logger } from './infra';
+import { TRELLO_APP_KEY } from '../constants';
+import { logger } from '../infra';
 
 const BASE_API = 'https://api.trello.com/1';
 

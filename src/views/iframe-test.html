@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Editor in tiny iframe</title>
+
+    <style>
+        #myIframe {
+            border: 1px solid blue;
+            width: 0;
+            height: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Monaco Editor inside iframe sample</h2>
+
+    <br />
+    <iframe id="myIframe" src="./test-model.html"></iframe>
+    <br />
+
+    <script>
+        const reveal = (iframe) => {
+            iframe.style.width = '800px';
+            iframe.style.height = '800px';
+            iframe.style.display = 'block';
+            iframe.style.visibility = 'visible';
+        }
+
+        setTimeout(() => reveal(document.getElementById('myIframe')), 1000);
+    </script>
+
+</body>
+
+</html>

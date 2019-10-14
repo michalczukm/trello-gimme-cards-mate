@@ -1,5 +1,5 @@
 import React, { useEffect, forwardRef, useImperativeHandle, memo, useState } from 'react';
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.main.js';
+import * as monaco from 'monaco-editor';
 
 const INITIAL_EDITOR_VALUE = `
 /**
@@ -26,19 +26,10 @@ const INITIAL_EDITOR_VALUE = `
   \`\`\`
  */
 
-render.writeLine('Hi!');
+render.writeLine('Hi! Just start typing 😊');
 
 
 `;
-
-self.MonacoEnvironment = {
-    getWorkerUrl: (_, label) => {
-        if (label === 'typescript' || label === 'javascript') {
-            return './ts.worker.js';
-        }
-        return './editor.worker.js';
-    },
-};
 
 monaco.languages.typescript.javascriptDefaults.addExtraLib(`
 type List = {

@@ -4,30 +4,38 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "build": "parcel build src/**/*.html",
-        "build:dev": "parcel watch src/**/*.html",
-        "build-monaco": "npm run build-monaco-ts && npm run build-monaco-worker",
-        "build-monaco-ts": "parcel build node_modules/monaco-editor/esm/vs/language/typescript/ts.worker.js --no-source-maps",
-        "build-monaco-worker": "parcel build node_modules/monaco-editor/esm/vs/editor/editor.worker.js --no-source-maps",
-        "serve": "parcel serve ./src/index.html"
+        "start": "webpack-dev-server --open --mode development",
+        "build": "webpack --mode production"
     },
     "author": "",
     "license": "ISC",
+    "dependencies": {
+        "monaco-editor": "^0.18.1",
+        "react": "^16.10.2",
+        "react-dom": "^16.10.2"
+    },
     "devDependencies": {
         "@babel/core": "^7.6.4",
         "@babel/plugin-proposal-class-properties": "^7.5.5",
+        "@babel/preset-env": "^7.6.3",
+        "@babel/preset-react": "^7.6.3",
+        "babel-loader": "^8.0.6",
+        "babel-plugin-react": "^1.0.0",
+        "css-loader": "^3.2.0",
+        "dotenv-webpack": "^1.7.0",
         "eslint": "^6.5.1",
         "eslint-config-airbnb": "^18.0.1",
         "eslint-config-prettier": "^6.4.0",
         "eslint-plugin-import": "^2.18.2",
         "eslint-plugin-jsx-a11y": "^6.2.3",
         "eslint-plugin-prettier": "^3.1.1",
-        "parcel-bundler": "^1.12.4",
-        "prettier": "^1.18.2"
-    },
-    "dependencies": {
-        "monaco-editor": "^0.18.1",
-        "react": "^16.10.2",
-        "react-dom": "^16.10.2"
+        "html-loader": "^0.5.5",
+        "html-webpack-plugin": "^3.2.0",
+        "monaco-editor-webpack-plugin": "^1.7.0",
+        "prettier": "^1.18.2",
+        "style-loader": "^1.0.0",
+        "webpack": "^4.41.1",
+        "webpack-cli": "^3.3.9",
+        "webpack-dev-server": "^3.8.2"
     }
 }
