@@ -27,7 +27,7 @@ const INITIAL_EDITOR_VALUE = `
  */
 
 render.writeLine('Hi! Just start typing 😊');
-
+render.list(LIST.cards.map(card => JSON.stringify(card, null, 2)));
 
 `;
 

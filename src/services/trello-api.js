@@ -43,7 +43,14 @@ const fetchData = (trello, { path, queryParams = {} }) =>
         .catch(error => errorResponse(`Cannot retrieve API token`, error));
 
 const cards = trello => ({
-    listCards: listId => fetchData(trello, { path: `lists/${listId}/cards` }),
+    listCards: listId =>
+        fetchData(trello, {
+            path: `lists/${listId}/cards`,
+            queryParams: {
+                fields: ['id', 'name', 'url', 'shortUrl', 'labels'],
+                attachments: true,
+            },
+        }),
 });
 
 export const getTrelloApiService = trello => ({

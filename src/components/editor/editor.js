@@ -53,7 +53,7 @@ export class Editor extends Component {
                         <MonacoEditor ref={this.bindEditorRef} />
                     </div>
                     <div className={tab === 'preview' ? '' : 'hidden'}>
-                        <pre class="preview-result">{previewResult}</pre>
+                        <pre className="preview-result">{previewResult}</pre>
                     </div>
                 </div>
             </>
