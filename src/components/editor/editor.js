@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-// import './editor.css';
+import './editor.css';
 
 import { evaluateUserTemplate } from '../../services/template-service';
 import MonacoEditor from './monaco-editor';
@@ -29,29 +29,34 @@ export class Editor extends Component {
         const { tab, previewResult } = this.state;
 
         return (
-            <div>
-                <div className={['app-editor', tab === 'editor' ? '' : 'hidden'].join(' ')}>
-                    <MonacoEditor ref={this.bindEditorRef} />
-                </div>
-                <div className={['app-editor', tab === 'preview' ? '' : 'hidden'].join(' ')}>
-                    <pre>
-                        <code>{previewResult}</code>
-                    </pre>
-                </div>
-
+            <>
                 <button
-                    className={tab === 'editor' ? 'tab__active' : ''}
+                    className={tab === 'editor' ? 'tab tab--active' : ''}
                     onClick={this.selectEditorHandler}
                 >
-                    🗂 Switch tab: Editor
+                    ⚛️ Editor
                 </button>
                 <button
-                    className={tab === 'preview' ? 'tab__active' : ''}
+                    className={tab === 'preview' ? 'tab tab--active' : ''}
                     onClick={this.selectPreviewHandler}
                 >
-                    🗂 Switch tab: Preview
+                    🗂 Preview
                 </button>
-            </div>
+
+                <div className="editor-content-wrapper">
+                    <div
+                        className={[
+                            tab === 'editor' ? '' : 'hidden',
+                            'editor-content-wrapper__editor',
+                        ].join(' ')}
+                    >
+                        <MonacoEditor ref={this.bindEditorRef} />
+                    </div>
+                    <div className={tab === 'preview' ? '' : 'hidden'}>
+                        <pre class="preview-result">{previewResult}</pre>
+                    </div>
+                </div>
+            </>
         );
     }
 }

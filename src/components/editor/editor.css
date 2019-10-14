@@ -1,13 +1,26 @@
-.app-editor {
-    height: 200px;
-    width: 800px;
+.editor-content-wrapper {
+    height: 100%;
+    width: 100%;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.editor-content-wrapper__editor {
+    border-radius: 3px;
+    box-shadow: 0 0 0 1px rgba(9, 30, 66, 0.13);
 }
 
 .hidden {
     display: none;
 }
 
-.tab__active {
+button.tab--active, button.tab--active:active {
     background-color: blueviolet;
     color: white;
+}
+
+pre.preview-result {
+    height: 100%;
+    overflow: auto;
+    margin: 0;
 }
