@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import './format-modal.css';
 
@@ -6,7 +6,7 @@ const { iframe: trelloIFrame } = window.TrelloPowerUp;
 
 import { TRELLO_APP_KEY, TRELLO_APP_NAME, RENDER_PLACEHOLDER_ID } from '../constants';
 import { getTrelloApiService } from '../services/trello-api';
-import { Editor } from '../components/editor';
+import { Editor, EditorActionsProvider, useEditorActionsContext } from '../components/editor';
 
 const trello = trelloIFrame({
     appKey: TRELLO_APP_KEY,
@@ -15,9 +15,9 @@ const trello = trelloIFrame({
 
 const listId = trello.arg('listId');
 
-const Root = () => {
+const FormatModal = () => {
     const [listCardsResponse, setListCardsResponse] = useState(null);
-    const [editorRef, setEditorRef] = useState(null);
+    const editorActionsContext = useEditorActionsContext();
 
     useEffect(() => {
         getTrelloApiService(trello)
@@ -25,10 +25,14 @@ const Root = () => {
             .then(response => setListCardsResponse(response));
     }, []);
 
-    const bindEditorRef = ref => setEditorRef(ref);
+    const prepareList = () => ({
+        cards: listCardsResponse.data,
+    });
 
     const closeModalHandler = () => trello.closeModal();
-    const copyResultToClipboardHandler = () => navigator.clipboard.writeText();
+    const copyResultToClipboardHandler = () => {
+        navigator.clipboard.writeText(editorActionsContext.getResult(prepareList()));
+    };
 
     const content = () =>
         listCardsResponse.error ? (
@@ -36,23 +40,36 @@ const Root = () => {
         ) : (
             <>
                 <div className="format-modal__editor">
-                    <Editor
-                        ref={bindEditorRef}
-                        list={{
-                            cards: listCardsResponse.data,
-                        }}
-                    />
+                    <Editor list={prepareList()} />
                 </div>
                 <div className="format-modal__actions">
                     <button onClick={closeModalHandler} className="mod-danger">
                         Close modal
                     </button>
-                    <button className="mod-primary">Copy result to clipboard</button>
+                    <button onClick={copyResultToClipboardHandler} className="mod-primary">
+                        Copy result to clipboard
+                    </button>
                 </div>
             </>
         );
 
     return <div className="format-modal">{!listCardsResponse ? <p>Loading...</p> : content()}</div>;
+};
+
+const Root = () => {
+    const [getActions, setActions] = useState({});
+
+    return (
+        <EditorActionsProvider
+            value={{
+                getCode: getActions.getCode,
+                getResult: getActions.getResult,
+                setActions,
+            }}
+        >
+            <FormatModal />
+        </EditorActionsProvider>
+    );
 };
 
 ReactDOM.render(<Root />, document.getElementById(RENDER_PLACEHOLDER_ID));

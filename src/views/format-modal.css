@@ -1,12 +1,12 @@
 .format-modal {
-    padding: 12px
+    padding: 12px;
 }
 
 .format-modal__actions {
-    margin: 12px 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    margin: 12px 12px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
 
 .format-modal__editor {
