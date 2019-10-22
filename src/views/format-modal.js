@@ -8,6 +8,7 @@ import { TRELLO_APP_KEY, TRELLO_APP_NAME, RENDER_PLACEHOLDER_ID } from '../const
 import { getTrelloApiService } from '../services/trello-api';
 import { Editor, EditorActionsProvider, useEditorActionsContext } from '../components/editor';
 import { copyToClipboard } from '../utils';
+import { Loader } from '../components/loader';
 
 const trello = trelloIFrame({
     appKey: TRELLO_APP_KEY,
@@ -54,7 +55,7 @@ const FormatModal = () => {
             </>
         );
 
-    return <div className="format-modal">{!listCardsResponse ? <p>Loading...</p> : content()}</div>;
+    return <div className="format-modal">{!listCardsResponse ? <Loader /> : content()}</div>;
 };
 
 const Root = () => {
