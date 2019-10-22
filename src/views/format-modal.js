@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './format-modal.css';
 
@@ -7,6 +7,7 @@ const { iframe: trelloIFrame } = window.TrelloPowerUp;
 import { TRELLO_APP_KEY, TRELLO_APP_NAME, RENDER_PLACEHOLDER_ID } from '../constants';
 import { getTrelloApiService } from '../services/trello-api';
 import { Editor, EditorActionsProvider, useEditorActionsContext } from '../components/editor';
+import { copyToClipboard } from '../utils';
 
 const trello = trelloIFrame({
     appKey: TRELLO_APP_KEY,
@@ -31,7 +32,7 @@ const FormatModal = () => {
 
     const closeModalHandler = () => trello.closeModal();
     const copyResultToClipboardHandler = () => {
-        navigator.clipboard.writeText(editorActionsContext.getResult(prepareList()));
+        copyToClipboard(editorActionsContext.getResult(prepareList()));
     };
 
     const content = () =>

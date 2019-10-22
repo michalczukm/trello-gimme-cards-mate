@@ -28,11 +28,10 @@ export class Editor extends Component {
 
     editorActions = {
         getCode: () => this.editorRef.getCode(),
-        getResult: list => {
+        getResult: list =>
             evaluateUserTemplate(this.editorRef.getCode(), {
                 list,
-            });
-        },
+            }),
     };
 
     render() {
