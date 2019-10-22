@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useImperativeHandle } from 'react';
 
 import './editor.css';
 
@@ -29,19 +29,21 @@ export class Editor extends Component {
         const { tab, previewResult } = this.state;
 
         return (
-            <>
-                <button
-                    className={tab === 'editor' ? 'tab tab--active' : ''}
-                    onClick={this.selectEditorHandler}
-                >
-                    ⚛️ Editor
-                </button>
-                <button
-                    className={tab === 'preview' ? 'tab tab--active' : ''}
-                    onClick={this.selectPreviewHandler}
-                >
-                    🗂 Preview
-                </button>
+            <div className="editor-container">
+                <div>
+                    <button
+                        className={tab === 'editor' ? 'tab tab--active' : ''}
+                        onClick={this.selectEditorHandler}
+                    >
+                        ⚛️ Editor
+                    </button>
+                    <button
+                        className={tab === 'preview' ? 'tab tab--active' : ''}
+                        onClick={this.selectPreviewHandler}
+                    >
+                        🗂 Preview
+                    </button>
+                </div>
 
                 <div className="editor-content-wrapper">
                     <div
@@ -56,7 +58,7 @@ export class Editor extends Component {
                         <pre className="preview-result">{previewResult}</pre>
                     </div>
                 </div>
-            </>
+            </div>
         );
     }
 }

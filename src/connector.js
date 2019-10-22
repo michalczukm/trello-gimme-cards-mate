@@ -14,7 +14,7 @@ const boardButtonsHandler = trello => {
                 },
                 callback: trello =>
                     trello.modal({
-                        url: './format-model.html',
+                        url: './format-modal.html',
                         title: `Gimme cards mate for "${list.name}" board`,
                         fullscreen: false,
                     }),
@@ -26,7 +26,7 @@ const boardButtonsHandler = trello => {
 const listActionHandler = trello =>
     trello.list('id', 'name').then(list =>
         trello.modal({
-            url: './format-model.html',
+            url: './format-modal.html',
             title: `Gimme cards for "${list.name}" mate!`,
             fullscreen: true,
             args: {

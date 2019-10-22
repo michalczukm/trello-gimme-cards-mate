@@ -58,12 +58,12 @@ const editorId = 'embedded_monaco_editor_id';
 
 const EditorPlaceholder = memo(() => (
     <div
-        style={{
-            height: '100%',
-            widows: '100%',
-        }}
-        id={editorId}
-    ></div>
+    style={{
+        height: '100%',
+        widows: '100%',
+    }}
+    id={editorId}
+    />
 ));
 
 const MonacoEditor = (_, ref) => {
