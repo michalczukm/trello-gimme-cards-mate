@@ -6,9 +6,11 @@ const { iframe: trelloIFrame } = window.TrelloPowerUp;
 
 import { TRELLO_APP_KEY, TRELLO_APP_NAME, RENDER_PLACEHOLDER_ID } from '../constants';
 import { getTrelloApiService } from '../services/trello-api';
-import { Editor, EditorActionsProvider, useEditorActionsContext } from '../components/editor';
 import { copyToClipboard } from '../utils';
+import { Editor, EditorActionsProvider, useEditorActionsContext } from '../components/editor';
 import { Loader } from '../components/loader';
+import { TemplatesBar } from '../components/templates-bar';
+import { getTemplatesService } from '../services/templates-service';
 
 const trello = trelloIFrame({
     appKey: TRELLO_APP_KEY,
@@ -17,14 +19,24 @@ const trello = trelloIFrame({
 
 const listId = trello.arg('listId');
 
+const templateService = getTemplatesService(trello);
+
 const FormatModal = () => {
     const [listCardsResponse, setListCardsResponse] = useState(null);
+    const [templates, setTemplates] = useState([]);
+    const [currentTemplate, setCurrentTemplate] = useState(null);
+
     const editorActionsContext = useEditorActionsContext();
 
     useEffect(() => {
         getTrelloApiService(trello)
             .cards.listCards(listId)
             .then(response => setListCardsResponse(response));
+
+        templateService.getAll().then(({ data }) => {
+            setTemplates(data.templates);
+            setCurrentTemplate(data.current);
+        });
     }, []);
 
     const prepareList = () => ({
@@ -36,11 +48,44 @@ const FormatModal = () => {
         copyToClipboard(editorActionsContext.getResult(prepareList()));
     };
 
+    const saveTemplate = () => {
+        templateService
+            .setUserCustom({ value: editorActionsContext })
+            .then(({ data }) => setCurrentTemplate(data.template));
+    };
+
+    const saveTemplateHandler = event => {
+        const userCustomTemplateExists = templates.some(template => template.type !== 'system');
+        trello.popup({
+            mouseEvent: event,
+            type: 'confirm',
+            title: 'Custom template',
+            message: userCustomTemplateExists
+                ? 'You already have custom template, do you want to update it?'
+                : 'Save code as custom template?',
+            confirmText: userCustomTemplateExists ? 'Update' : 'Save',
+            cancelText: 'Cancel',
+            confirmStyle: 'primary',
+            onConfirm: saveTemplate,
+        });
+    };
+
+    const selectTemplateHandler = template =>
+        setCurrentTemplate(template) && templateService.setCurrent(template);
+
     const content = () =>
         listCardsResponse.error ? (
             <p>️⚠️ Ups, we cannot fetch your data 😢</p>
         ) : (
             <>
+                <div className="format-modal__templates">
+                    <TemplatesBar
+                        templates={templates}
+                        selectedTemplate={currentTemplate}
+                        onSave={saveTemplateHandler}
+                        onSelect={selectTemplateHandler}
+                    />
+                </div>
                 <div className="format-modal__editor">
                     <Editor list={prepareList()} />
                 </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './editor.css';
 
-import { evaluateUserTemplate } from '../../services/template-service';
+import { evaluateUserTemplate } from '../../services/render-template-service';
 import MonacoEditor from './monaco-editor';
 import { EditorActionsConsumer } from './editor-actions-context';
 

@@ -1,17 +1,9 @@
 import { TRELLO_APP_KEY } from '../constants';
-import { logger } from '../infra';
+import { errorResponse } from '../utils/errors';
 
 const BASE_API = 'https://api.trello.com/1';
 
 const withToken = (trello, action) => action(trello);
-
-const errorResponse = (message, error) => {
-    logger.error(message, error);
-    return {
-        error: message,
-        data: {},
-    };
-};
 
 const getTokenPromise = trello =>
     trello

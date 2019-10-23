@@ -1,0 +1,9 @@
+.template-bar-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.template-bar-container__item {
+    margin: 8px;
+}
