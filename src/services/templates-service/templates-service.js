@@ -45,8 +45,6 @@ export const getTemplatesService = trello => ({
             name,
         };
 
-        debugger;
-
         return trello
             .set('board', 'shared', TRELLO_DATA_KEY_TEMPLATES, JSON.stringify([newTemplate]))
             .then(() => ({ data: newTemplate }))

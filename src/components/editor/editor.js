@@ -14,27 +14,36 @@ export class Editor extends PureComponent {
         previewResult: '',
     };
 
+    componentWillReceiveProps = ({ code }) => {
+        if (this.props.code !== code && this.editorRef) {
+            this.editorRef.setCode(code);
+
+            if (this.state.tab === 'preview') {
+                this.setState({
+                    previewResult: this.generatePreview(),
+                });
+            }
+        }
+    };
+
     bindEditorRef = ref => {
         this.editorRef = ref;
 
-        if (this.state.tab === 'editor' && this.editorRef) {
+        if (this.editorRef) {
             this.editorRef.setCode(this.props.code);
         }
     };
 
-    componentWillReceiveProps({ code }) {
-        if (this.props.code !== code && this.state.tab === 'editor' && this.editorRef) {
-            this.editorRef.setCode(code);
-        }
-    }
+    generatePreview = () =>
+        evaluateUserTemplate(this.editorRef.getCode(), {
+            list: this.props.list,
+        });
 
     selectEditorHandler = () => this.setState({ tab: 'editor' });
     selectPreviewHandler = () => {
         this.setState({
             tab: 'preview',
-            previewResult: evaluateUserTemplate(this.editorRef.getCode(), {
-                list: this.props.list,
-            }),
+            previewResult: this.generatePreview(),
         });
     };
 
