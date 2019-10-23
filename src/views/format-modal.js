@@ -50,8 +50,8 @@ const FormatModal = () => {
 
     const saveTemplate = () => {
         templateService
-            .setUserCustom({ value: editorActionsContext })
-            .then(({ data }) => setCurrentTemplate(data.template));
+            .setUserCustom({ value: editorActionsContext.getCode() })
+            .then(({ data }) => setCurrentTemplate(data));
     };
 
     const saveTemplateHandler = event => {
@@ -71,7 +71,7 @@ const FormatModal = () => {
     };
 
     const selectTemplateHandler = template =>
-        setCurrentTemplate(template) && templateService.setCurrent(template);
+        setCurrentTemplate(template) || templateService.setCurrent(template);
 
     const content = () =>
         listCardsResponse.error ? (
@@ -87,7 +87,7 @@ const FormatModal = () => {
                     />
                 </div>
                 <div className="format-modal__editor">
-                    <Editor list={prepareList()} />
+                    <Editor list={prepareList()} code={currentTemplate && currentTemplate.value} />
                 </div>
                 <div className="format-modal__actions">
                     <button onClick={closeModalHandler} className="mod-danger">

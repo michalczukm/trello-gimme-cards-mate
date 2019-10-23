@@ -2,13 +2,13 @@ import React from 'react';
 import './templates-bar.css';
 
 export const TemplatesBar = ({ templates, selectedTemplate, onSave, onSelect }) => {
-    const selectChangeHandler = event => onSelect(event.target.value);
-    const saveHandler = event => onSave(event);
+    const selectChangeHandler = event =>
+        onSelect(templates.find(template => template.id === event.target.value));
 
     return (
         <div className="template-bar-container">
             <select
-                value={selectedTemplate}
+                value={selectedTemplate.id}
                 onChange={selectChangeHandler}
                 className="template-bar-container__item"
             >

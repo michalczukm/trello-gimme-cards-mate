@@ -15,7 +15,7 @@ export const getTemplatesService = trello => ({
     getAll: () =>
         Promise.all([
             trello.get('board', 'shared', TRELLO_DATA_KEY_TEMPLATES),
-            trello.get('board', 'shared', TRELLO_DATA_KEY_CURRENT_TEMPLATE),
+            trello.get('board', 'shared', TRELLO_DATA_KEY_CURRENT_TEMPLATE, 'breakfast-news'),
         ])
             .then(([savedTemplates, currentTemplateId]) => {
                 const templates = [
@@ -45,9 +45,11 @@ export const getTemplatesService = trello => ({
             name,
         };
 
+        debugger;
+
         return trello
             .set('board', 'shared', TRELLO_DATA_KEY_TEMPLATES, JSON.stringify([newTemplate]))
-            .then(() => ({ data: template}))
+            .then(() => ({ data: newTemplate }))
             .catch(error => errorResponse(`Cannot save ${name} template`, error));
     },
     setCurrent: template =>

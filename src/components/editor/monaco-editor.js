@@ -58,11 +58,11 @@ const editorId = 'embedded_monaco_editor_id';
 
 const EditorPlaceholder = memo(() => (
     <div
-    style={{
-        height: '100%',
-        widows: '100%',
-    }}
-    id={editorId}
+        style={{
+            height: '100%',
+            widows: '100%',
+        }}
+        id={editorId}
     />
 ));
 
@@ -82,7 +82,8 @@ const MonacoEditor = (_, ref) => {
     }, []);
 
     useImperativeHandle(ref, () => ({
-        getCode: () => editor.getValue(),
+        getCode: () => editor && editor.getValue(),
+        setCode: code => editor && editor.setValue(code)
     }));
 
     return <EditorPlaceholder />;

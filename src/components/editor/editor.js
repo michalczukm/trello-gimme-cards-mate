@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import './editor.css';
 
@@ -6,7 +6,8 @@ import { evaluateUserTemplate } from '../../services/render-template-service';
 import MonacoEditor from './monaco-editor';
 import { EditorActionsConsumer } from './editor-actions-context';
 
-export class Editor extends Component {
+
+export class Editor extends PureComponent {
     editorRef = null;
 
     state = {
@@ -14,7 +15,13 @@ export class Editor extends Component {
         previewResult: '',
     };
 
-    bindEditorRef = ref => (this.editorRef = ref);
+    bindEditorRef = ref => {
+        this.editorRef = ref;
+
+        if (this.editorRef) {
+            this.editorRef.setCode(this.props.code);
+        }
+    };
 
     selectEditorHandler = () => this.setState({ tab: 'editor' });
     selectPreviewHandler = () => {
@@ -36,6 +43,11 @@ export class Editor extends Component {
 
     render() {
         const { tab, previewResult } = this.state;
+        const { code } = this.props;
+
+        if (this.editorRef) {
+            this.editorRef.setCode(code);
+        }
 
         return (
             <EditorActionsConsumer>
