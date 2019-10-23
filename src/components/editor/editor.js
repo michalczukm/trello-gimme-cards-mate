@@ -6,7 +6,6 @@ import { evaluateUserTemplate } from '../../services/render-template-service';
 import MonacoEditor from './monaco-editor';
 import { EditorActionsConsumer } from './editor-actions-context';
 
-
 export class Editor extends PureComponent {
     editorRef = null;
 
@@ -18,10 +17,16 @@ export class Editor extends PureComponent {
     bindEditorRef = ref => {
         this.editorRef = ref;
 
-        if (this.editorRef) {
+        if (this.state.tab === 'editor' && this.editorRef) {
             this.editorRef.setCode(this.props.code);
         }
     };
+
+    componentWillReceiveProps({ code }) {
+        if (this.props.code !== code && this.state.tab === 'editor' && this.editorRef) {
+            this.editorRef.setCode(code);
+        }
+    }
 
     selectEditorHandler = () => this.setState({ tab: 'editor' });
     selectPreviewHandler = () => {
@@ -43,11 +48,6 @@ export class Editor extends PureComponent {
 
     render() {
         const { tab, previewResult } = this.state;
-        const { code } = this.props;
-
-        if (this.editorRef) {
-            this.editorRef.setCode(code);
-        }
 
         return (
             <EditorActionsConsumer>

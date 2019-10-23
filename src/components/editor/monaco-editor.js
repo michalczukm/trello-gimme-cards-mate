@@ -89,4 +89,4 @@ const MonacoEditor = (_, ref) => {
     return <EditorPlaceholder />;
 };
 
-export default forwardRef(MonacoEditor);
+export default memo(forwardRef(MonacoEditor));
