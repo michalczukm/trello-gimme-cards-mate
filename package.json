@@ -1,14 +1,21 @@
 {
     "name": "gimme-cards-mate",
     "version": "1.0.0",
-    "description": "",
+    "description": "Trello power-up which allow you to generate formated document filled with your cards on a Trello list.",
     "main": "index.js",
     "scripts": {
         "start": "webpack-dev-server --open --mode development",
         "build": "webpack --mode production"
     },
-    "author": "",
-    "license": "ISC",
+    "author": {
+        "name": "Michal Michalczuk",
+        "url": "https://michalczukm.xyz/"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/michalczukm/trello-gimme-cards-mate.git"
+    },
     "dependencies": {
         "monaco-editor": "^0.18.1",
         "react": "^16.10.2",
