@@ -25,14 +25,19 @@ You can use custom (non marketplace power-up) only in the Trello team that you'r
 
 Please make sure you have one, if you want to use this.
 
-1. Visit [trello.com/power-ups/admin](https://trello.com/power-ups/admin)
-1. Press `Create new power-up`
+1. Visit [trello.com/power-ups/admin](https://trello.com/power-ups/admin) and press `Create new power-up`
 ![Create new power-up](./docs/add-powerup-1.png)
-1. Fill form, if you want to use my distribution, put https://example.com/to-be-filled as `iFrame connector URL`
+1. Fill form, if you want to use my distribution, put **https://michalczukm.github.io/trello-gimme-cards-mate/** as `iFrame connector URL`. Click **Create**.
 ![New power-up form](./docs/add-powerup-2.png)
-1. Go to board which, you'd like to add power-up to. **Please remember that it has to be in the same team**. And add a `custom` power-up
+1. Set power-up capabilities - those are entry points where it can be rendered. Set `list-actions` to true.
 ![New power-up form](./docs/add-powerup-3.png)
-
+1. Visit [trello.com/app-key](https://trello.com/app-key), and add **https://michalczukm.github.io/trello-gimme-cards-mate/** to list of allowed URLs to redirect after authorization flow. 
+You can also add there wildcard `*`, but I wouldn't do this if I were you 🤓
+![New power-up form](./docs/add-powerup-5.png)
+1. Go to board which, you'd like to add power-up to. **Please remember that it has to be in the same team**. And add a `custom` power-up
+![New power-up form](./docs/add-powerup-4.png)
+1. *Gimme cards mate* should be available in list meatballs menu. Before first run you'll have to authorize it for reading your data (it reads cards from the list, remember? 🙃).
+![New power-up form](./docs/add-powerup-6.png)
 ## Install
 
 ```sh
@@ -40,6 +45,10 @@ npm install
 ```
 
 ## Usage
+
+**Before** running it:
+* ⚠️ prepare your `.env` file. Example is [.env.example](./.env.example)
+
 
 Run and serve via `webpack-dev-server`
 ```sh
@@ -61,6 +70,10 @@ For `ngrok` you have to add extra headers when exposing `webpack-dev-server`.
 ```sh
 // add here the command
 ```
+
+To make your app complete authorization flow - you have to allow this origin for authorization redirect from Trello in app-key.
+
+Do the same step [(as here)].(#adding-this-trello-power-up-to-your-board), but with your own URL.
 
 ## More information
 
