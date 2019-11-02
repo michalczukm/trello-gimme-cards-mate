@@ -8,6 +8,7 @@ const listActionHandler = trello =>
             fullscreen: true,
             args: {
                 listId: list.id,
+                listName: list.name
             },
         }),
     );

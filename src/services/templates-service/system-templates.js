@@ -41,7 +41,7 @@ const renderDescription = card => {
   }
 }
 
-render.writeLine('Hi! Just start typing 😊');
+render.writeLine(LIST.name);
 LIST.cards.forEach(card => {
   render.writeLine(\`* $\{card.name\}\`);
   renderDescription(card);

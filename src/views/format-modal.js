@@ -18,6 +18,7 @@ const trello = trelloIFrame({
 });
 
 const listId = trello.arg('listId');
+const listName = trello.arg('listName');
 
 const templateService = getTemplatesService(trello);
 
@@ -41,6 +42,7 @@ const FormatModal = () => {
 
     const prepareList = () => ({
         cards: listCardsResponse.data,
+        name: listName
     });
 
     const closeModalHandler = () => trello.closeModal();
