@@ -16,8 +16,33 @@
 
 ## In action
 
-```
-// add gif here
+![in action gif](./docs/in-action.gif)
+
+In editor you have access all cards on the list and to render functions.
+Both should be suggested by autocomplete.
+
+```typescript
+type List = {
+    name: string,
+    cards: {
+        id: string,
+        name: string,
+        desc: string,
+        url: string,
+        shortUrl: string,
+        attachments: { id: string, name: string, url: string, date: string }[],
+        labels: { id: string, name: string, color: string }[]
+    }[]
+};
+
+declare const LIST: List;
+
+declare const render: {
+  write(content: string): void,
+  newLine(): void;
+  writeLine(content: string): void,
+  list(items: string[], type: 'ordered' | 'unordered' = 'unordered'): void
+}
 ```
 
 ## Adding this Trello power-up to your board
@@ -68,12 +93,13 @@ You can use services like [ngrok](https://ngrok.com/) for that.
 For `ngrok` you have to add extra headers when exposing `webpack-dev-server`.
 
 ```sh
-// add here the command
+# assuming that your webpack-dev server runs on port 8080
+ngrok http 8080 --host-header="localhost:8080"
 ```
 
 To make your app complete authorization flow - you have to allow this origin for authorization redirect from Trello in app-key.
 
-Do the same step [(as here)].(#adding-this-trello-power-up-to-your-board), but with your own URL.
+Do the same step [(as here)](#adding-this-trello-power-up-to-your-board), but with your own URL.
 
 ## More information
 
