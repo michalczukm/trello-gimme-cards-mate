@@ -44,7 +44,7 @@ const renderDescription = card => {
 render.writeLine('Hi! Just start typing 😊');
 LIST.cards.forEach(card => {
   render.writeLine(\`* $\{card.name\}\`);
-  renderDescription();
+  renderDescription(card);
   card.attachments.length && render.list(card.attachments.map(renderAttachment));
 });
 `;
