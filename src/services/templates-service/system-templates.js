@@ -28,6 +28,27 @@ render.list(LIST.cards.map(card => JSON.stringify(card, null, 2)));
 
 `;
 
+const breakfastNewsTemplate = `
+const renderAttachment = attachment => 
+  attachment.name && attachment.name !== attachment.url ? 
+    \`$\{attachment.name\}: $\{attachment.url\}\` 
+    : attachment.url;
+
+const renderDescription = card => {
+  if(card.desc){
+    render.writeLine(\`  $\{card.desc\}\`);
+    render.newLine();
+  }
+}
+
+render.writeLine('Hi! Just start typing 😊');
+LIST.cards.forEach(card => {
+  render.writeLine(\`* $\{card.name\}\`);
+  renderDescription();
+  card.attachments.length && render.list(card.attachments.map(renderAttachment));
+});
+`;
+
 export const SYSTEM_TEMPLATES = [
     {
         id: 'hello-example',
@@ -38,7 +59,7 @@ export const SYSTEM_TEMPLATES = [
     {
         id: 'breakfast-news',
         name: 'Breakfast news',
-        value: `render.writeLine('!')`,
+        value: breakfastNewsTemplate,
         type: 'system',
     },
 ];

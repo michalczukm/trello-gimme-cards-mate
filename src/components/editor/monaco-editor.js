@@ -37,6 +37,7 @@ type List = {
     cards: {
         id: string,
         name: string,
+        desc: string,
         url: string,
         shortUrl: string,
         attachments: { id: string, name: string, url: string, date: string }[],

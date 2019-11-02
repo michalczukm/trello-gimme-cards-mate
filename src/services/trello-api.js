@@ -39,7 +39,7 @@ const cards = trello => ({
         fetchData(trello, {
             path: `lists/${listId}/cards`,
             queryParams: {
-                fields: ['id', 'name', 'url', 'shortUrl', 'labels'],
+                fields: ['id', 'name', 'desc', 'url', 'shortUrl', 'labels'],
                 attachments: true,
             },
         }),
